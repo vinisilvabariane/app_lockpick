@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: app_lockpick
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    env_file:
+      - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  hotreload:
+    image: node:20-alpine
+    working_dir: /workspace
+    command: >
+      sh -lc "npx browser-sync start
+      --proxy web:80
+      --files 'index.php,app/**/*.php,includes/**/*.php,public/css/**/*.css,public/js/**/*.js'
+      --port 3000
+      --host 0.0.0.0
+      --no-open
+      --no-ui"
+    volumes:
+      - .:/workspace
+    ports:
+      - "3000:3000"
+    depends_on:
+      - web

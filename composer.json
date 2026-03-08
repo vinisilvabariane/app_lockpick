@@ -1,0 +1,16 @@
+{
+    "name": "vinicius/lockpick",
+    "description": "Lockpick user management system",
+    "require": {
+      "ext-pdo": "*",
+      "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "scripts": {
+        "watch": "npx browser-sync start --proxy \"localhost\" --files \"index.php,app/**/*.php,includes/**/*.php,public/css/**/*.css,public/js/**/*.js\" --port 3000 --no-open"
+    }
+}
